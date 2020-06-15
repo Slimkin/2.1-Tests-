@@ -40,16 +40,16 @@ class SecretaryAppTestCase(unittest.TestCase):
         doc = '2207 876234'
         test_shelf = '3'
         self.assertIn(doc, [document['number'] for document in documents])
-        with patch('secretary.input', side_effect=[doc, test_shelf]):
+        with patch('app.input', side_effect=[doc, test_shelf]):
             app.move_doc_to_shelf()
         self.assertIn(doc, directories[test_shelf])
 
 
     def test_add_new_doc(self):
-        with patch('secretary.input',
+        with patch('app.input',
                    side_effect=['4705 118098', 'passport', 'Ivanov Ivan', '1']):
             result = app.add_new_doc()
-        self.assertIn('7005 808598', directories['1'])
+        self.assertIn('4705 118098', directories['1'])
         self.assertEqual(result, '1')
 
 if __name__ == '__main__':
